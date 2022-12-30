@@ -5,6 +5,7 @@
 
 void print_list(struct list *list)
 {
+    printf("[%i] ", list->data);
     list = list->next;
     while(list != NULL)
     {
@@ -31,7 +32,7 @@ int main()
     printf("Current list : \n");
     print_list(list);
 
-    sort_reverse(list);
+    remove_at(list, 1);
 
     printf("Modified list : \n");
     print_list(list);
