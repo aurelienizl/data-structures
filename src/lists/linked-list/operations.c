@@ -20,6 +20,11 @@ struct list *new_element(int data)
     return head;
 }
 
+void remove_element(struct list *list)
+{
+    free(list);
+}
+
 void add_top(struct list *list, struct list *element)
 {
     if(list->next == NULL) // Pass the sentinel
@@ -75,4 +80,23 @@ void sort_reverse(struct list *list)
             }
         }
     }
+}
+
+void remove_at(struct list *list, int index)
+{
+    struct list *tmp = list;
+    list = list->next;
+
+    while(index > 0 && list != NULL)
+    {
+        tmp = list;
+        list = list->next;
+        index --;
+    }
+    if(index != 0 || list == NULL)
+    {
+        return;
+    }
+    tmp->next = list->next;
+    remove_element(list);
 }
