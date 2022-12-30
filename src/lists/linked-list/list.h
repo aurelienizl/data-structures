@@ -34,6 +34,9 @@ struct list *new_list();
 // Return a new element 
 struct list *new_element(int data);
 
+// Delete the element 
+void remove_element(struct list *element);
+
 // Add the element on the top of the list, just after the sentinel.
 void add_top(struct list *list, struct list *element);
 
