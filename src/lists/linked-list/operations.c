@@ -22,6 +22,7 @@ struct list *new_element(int data)
 
 void remove_element(struct list *list)
 {
+    free(list->next);
     free(list);
 }
 
@@ -45,6 +46,11 @@ void add_end(struct list *list, struct list *element)
     list->next = element;
 }
 
+void add_to(struct list *element, struct list *node)
+{
+    element->next = node;
+}
+
 void swap(struct list *element1, struct list *element2)
 {
     int tmp = element1->data;
@@ -54,31 +60,57 @@ void swap(struct list *element1, struct list *element2)
 
 void sort(struct list *list)
 {
-    int size = count(list);
-    for(int i = 0; i < size; i++)
+    if(list->next == NULL)
     {
-        for(int j = i + 1; j < size; j++)
+        return;
+    }
+    if(list->next->next == NULL)
+    {
+        return;
+    }
+
+    struct list *i = list->next;
+    struct list *j = list->next->next;
+    while(i != NULL)
+    {
+        j = i->next;
+        while(j != NULL)
         {
-            if(get_at(list,i)->data > get_at(list,j)->data)
+            if(i->data>j->data)
             {
-                swap(get_at(list,i), get_at(list,j));
+                swap(i,j);
             }
+            j = j->next;
         }
+        i = i->next;
     }
 }
 
 void sort_reverse(struct list *list)
 {
-    int size = count(list);
-    for(int i = 0; i < size; i++)
+    if(list->next == NULL)
     {
-        for(int j = i + 1; j < size; j++)
+        return;
+    }
+    if(list->next->next == NULL)
+    {
+        return;
+    }
+
+    struct list *i = list->next;
+    struct list *j = list->next->next;
+    while(i != NULL)
+    {
+        j = i->next;
+        while(j != NULL)
         {
-            if(get_at(list,i)->data < get_at(list,j)->data)
+            if(i->data<j->data)
             {
-                swap(get_at(list,i), get_at(list,j));
+                swap(i,j);
             }
+            j = j->next;
         }
+        i = i->next;
     }
 }
 
@@ -99,4 +131,38 @@ void remove_at(struct list *list, int index)
     }
     tmp->next = list->next;
     remove_element(list);
+}
+
+void remove_last(struct list *list)
+{
+    struct list *curr = list->next;
+    struct list *before = list;
+
+    if(curr == NULL)
+    {
+        return;
+    }
+
+    while(curr->next != NULL)
+    {
+        curr = curr->next;
+        before = before->next;
+    }
+
+    before->next = NULL;
+    remove_element(curr);
+}
+
+void remove_first(struct list *list)
+{
+    struct list *curr = list->next;
+    struct list *before = list;
+
+    if(curr == NULL)
+    {
+        return;
+    }
+
+    before->next = NULL;
+    remove_element(curr);
 }
