@@ -18,9 +18,10 @@ void print_list(struct list *list)
 void initList(struct list *list)
 {
     srand(time(NULL));
-    for(int i = 0; i < 10; i++)
+    for(int i = 0; i < 10000; i++)
     {
-        add_end(list,new_element(rand() % 10));
+        add_to(list,new_element(rand() % 100));
+        list = list->next;
     }
   
 }
@@ -30,10 +31,10 @@ int main()
     struct list *list = new_list();
     initList(list);
     printf("Current list : \n");
-    print_list(list);
+    //print_list(list);
 
-    remove_at(list, 1);
-
+    sort_reverse(list);
+   
     printf("Modified list : \n");
     print_list(list);
 
