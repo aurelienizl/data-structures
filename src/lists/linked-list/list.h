@@ -43,6 +43,9 @@ void add_top(struct list *list, struct list *element);
 // Add the element at the end of the list.
 void add_end(struct list *list, struct list *element);
 
+// Add the node next to the element
+void add_to(struct list *element, struct list *node);
+
 // Swap two element in the list if they exists. 
 // Otherwise, do nothing. 
 void swap(struct list *element1, struct list *element2);
