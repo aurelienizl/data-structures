@@ -22,7 +22,6 @@ struct list *new_element(int data)
 
 void remove_element(struct list *list)
 {
-    free(list->next);
     free(list);
 }
 
@@ -155,14 +154,41 @@ void remove_last(struct list *list)
 
 void remove_first(struct list *list)
 {
-    struct list *curr = list->next;
-    struct list *before = list;
+    struct list *sentinel = list;
+    struct list *first = sentinel->next;
 
-    if(curr == NULL)
+    if(first == NULL)
     {
         return;
     }
 
-    before->next = NULL;
-    remove_element(curr);
+    sentinel->next = first->next;
+    remove_element(first);
+}
+
+void remove_list(struct list** head) {
+    struct list *current = *head;
+    struct list *tmp;
+
+    while(current != NULL)
+    {
+        tmp = current->next;
+        free(current);
+        current = tmp;
+    }
+    *head = NULL;
+}
+
+void clear(struct list **list)
+{
+    struct list *current = (*list)->next;
+    struct list *tmp;
+
+    while(current != NULL)
+    {
+        tmp = current->next;
+        free(current);
+        current = tmp;
+    }
+    (*list)->next = NULL;
 }
