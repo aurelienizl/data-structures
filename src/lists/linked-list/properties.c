@@ -20,20 +20,29 @@ int exists(struct list *list, int value)
         {
             return 1;
         }
+        list = list->next;
     }
     return 0;
 }
 
-struct list *get_at(struct list *list, int index)
+int is_sorted(struct list *list)
 {
-    list = list->next; // Pass the sentinel
-
-    while(index != 0)
+    list = list->next;
+    if(list == NULL)
     {
-        list = list->next;
-        index --;
+        return 1;
     }
-    return list;
+
+    while(list->next != NULL)
+    {
+        if(list->data > (list->next)->data)
+        {
+            return 0;
+        }
+        list = list->next;
+    }
+
+    return 1;
 }
 
 int count(struct list *list)

@@ -192,3 +192,15 @@ void clear(struct list **list)
     }
     (*list)->next = NULL;
 }
+
+struct list *get_at(struct list *list, int index)
+{
+    list = list->next; // Pass the sentinel
+
+    while(index != 0)
+    {
+        list = list->next;
+        index --;
+    }
+    return list;
+}
