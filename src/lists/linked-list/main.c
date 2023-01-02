@@ -59,8 +59,6 @@ int main()
     printf("Random list : \n");
     print_list(random);
 
-    // TEST HERE 
-
     struct list *element1 = new_element(32);
     struct list *element2 = new_element(-12);
     struct list *element3 = new_element(0);
@@ -68,9 +66,9 @@ int main()
     struct list *element5 = new_element(-12);
     struct list *element6 = new_element(0);
 
-    remove_first(alone);
-    remove_last(random);
-    clear(&random);
+    // TEST HERE 
+
+   
 
 
     // TEST HERE 
