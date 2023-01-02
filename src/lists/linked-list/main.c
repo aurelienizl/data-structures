@@ -5,20 +5,32 @@
 
 void print_list(struct list *list)
 {
+    if(list == NULL)
+    {
+        printf("[NULL]");
+        return;
+    }
     printf("[%i] ", list->data);
     list = list->next;
     while(list != NULL)
     {
-        printf(" %i ", list->data);
+        if(list->next != NULL)
+        {
+            printf(" [%i]->[%i] ", list->data, list->next->data);
+        }
+        else
+        {
+            printf(" [%i] ", list->data);
+        }
         list = list->next;
     }
-    printf("\n");
+    printf(" [NULL] \n");
 }
 
-void initList(struct list *list)
+void initList(struct list *list, int n)
 {
     srand(time(NULL));
-    for(int i = 0; i < 10000; i++)
+    for(int i = 0; i < n; i++)
     {
         add_to(list,new_element(rand() % 100));
         list = list->next;
@@ -28,15 +40,53 @@ void initList(struct list *list)
 
 int main()
 {
-    struct list *list = new_list();
-    initList(list);
-    printf("Current list : \n");
-    //print_list(list);
 
-    sort_reverse(list);
-   
-    printf("Modified list : \n");
-    print_list(list);
+    struct list *empty = new_list();
+    struct list *alone = new_list();
+    struct list *random = new_list();
+
+    initList(empty, 0);
+    initList(alone, 1);
+    initList(random, 10);
+
+    printf("---BEFORE---\n");
+
+
+    printf("Empty list : \n");
+    print_list(empty);
+    printf("Alone list : \n");
+    print_list(alone);
+    printf("Random list : \n");
+    print_list(random);
+
+    // TEST HERE 
+
+    struct list *element1 = new_element(32);
+    struct list *element2 = new_element(-12);
+    struct list *element3 = new_element(0);
+    struct list *element4 = new_element(32);
+    struct list *element5 = new_element(-12);
+    struct list *element6 = new_element(0);
+
+    remove_first(alone);
+    remove_last(random);
+    clear(&random);
+
+
+    // TEST HERE 
+
+
+    printf("---AFTER---\n");
+
+    printf("Empty list : \n");
+    print_list(empty);
+    printf("Alone list : \n");
+    print_list(alone);
+    printf("Random list : \n");
+    print_list(random);
+
+
+
 
 }
 
