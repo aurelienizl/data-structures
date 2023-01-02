@@ -8,7 +8,6 @@ struct list
 };
 
 
-
 // ----PROPERTIES---- //
 
 // Return true if the list is empty.
@@ -67,7 +66,10 @@ void remove_last(struct list *list);
 void remove_first(struct list *list);
 
 // Remove the list 
-void remove_list(struct list *list);
+void remove_list(struct list **list);
+
+// Clear the list, keep only the sentinel
+void clear(struct list **list);
 
 // Insert the element at index, if index is out of range do nothing
 void insert_at(struct list *list, struct list *element, int index);
