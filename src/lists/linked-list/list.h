@@ -71,7 +71,7 @@ void remove_list(struct list **list);
 // Clear the list, keep only the sentinel
 void clear(struct list **list);
 
-// Insert the element at index, if index is out of range do nothing
+// Insert the element at index, if index is out of range do nothing 
 void insert_at(struct list *list, struct list *element, int index);
 
 // Insert the element before the node 
