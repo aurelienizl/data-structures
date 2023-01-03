@@ -193,6 +193,33 @@ void clear(struct list **list)
     (*list)->next = NULL;
 }
 
+void insert_at(struct list *list, struct list *node, int index)
+{
+    struct list *current = list->next;
+    struct list *before = list;
+
+    while(current != NULL && index > 0) // 
+    {
+        current = current->next;
+        before = before->next;
+        index--;
+    }
+
+    if(index > 0) // Index out of range
+    {
+        return;
+    }
+
+    if(current == NULL) // Insertion at the end of the list
+    {
+        before->next = node;
+        return;
+    }
+
+    before->next = node; // Insertion between two nodes
+    node->next = current;
+}
+
 struct list *get_at(struct list *list, int index)
 {
     list = list->next; // Pass the sentinel
