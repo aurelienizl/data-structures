@@ -220,6 +220,25 @@ void insert_at(struct list *list, struct list *node, int index)
     node->next = current;
 }
 
+void insert_before(struct list *list,struct list *node, struct list *element)
+{
+    struct list *current = list->next;
+    struct list *before = list;
+
+    while(current->data != node->data)
+    {
+        before = before->next;
+        current = current->next;
+        if(current == NULL)
+        {
+            return;
+        }
+    }
+
+    before->next = element;
+    element->next = current;
+}
+
 struct list *get_at(struct list *list, int index)
 {
     list = list->next; // Pass the sentinel
