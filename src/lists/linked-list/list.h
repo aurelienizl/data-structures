@@ -14,7 +14,7 @@ struct list
 // Otherwise, return false.
 int is_empty(struct list *list);
 
-// Return true if the first element that contains 'value' is found.
+// Return true if the list contain an element that contains 'value'.
 // Otherwise, return false. 
 int exists(struct list *list, int value);
 
