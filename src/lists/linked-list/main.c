@@ -68,7 +68,8 @@ int main()
 
     // TEST HERE 
 
-   
+    add_top(random,element1);
+    insert_before(random, element1, element2);
 
 
     // TEST HERE 
@@ -82,9 +83,5 @@ int main()
     print_list(alone);
     printf("Random list : \n");
     print_list(random);
-
-
-
-
 }
 
