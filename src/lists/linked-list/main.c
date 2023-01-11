@@ -59,29 +59,20 @@ int main()
     printf("Random list : \n");
     print_list(random);
 
-    struct list *element1 = new_element(32);
-    struct list *element2 = new_element(-12);
-    struct list *element3 = new_element(0);
-    struct list *element4 = new_element(32);
-    struct list *element5 = new_element(-12);
-    struct list *element6 = new_element(0);
-
     // TEST HERE 
 
-    add_top(random,element1);
-    insert_before(random, element1, element2);
-
-
     // TEST HERE 
-
 
     printf("---AFTER---\n");
-
     printf("Empty list : \n");
     print_list(empty);
     printf("Alone list : \n");
     print_list(alone);
     printf("Random list : \n");
     print_list(random);
+
+    remove_list(&empty);
+    remove_list(&alone);
+    remove_list(&random);
 }
 
