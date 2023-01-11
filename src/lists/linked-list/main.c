@@ -40,39 +40,6 @@ void initList(struct list *list, int n)
 
 int main()
 {
-
-    struct list *empty = new_list();
-    struct list *alone = new_list();
-    struct list *random = new_list();
-
-    initList(empty, 0);
-    initList(alone, 1);
-    initList(random, 10);
-
-    printf("---BEFORE---\n");
-
-
-    printf("Empty list : \n");
-    print_list(empty);
-    printf("Alone list : \n");
-    print_list(alone);
-    printf("Random list : \n");
-    print_list(random);
-
-    // TEST HERE 
-
-    // TEST HERE 
-
-    printf("---AFTER---\n");
-    printf("Empty list : \n");
-    print_list(empty);
-    printf("Alone list : \n");
-    print_list(alone);
-    printf("Random list : \n");
-    print_list(random);
-
-    remove_list(&empty);
-    remove_list(&alone);
-    remove_list(&random);
+    
 }
 
