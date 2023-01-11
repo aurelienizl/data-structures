@@ -1,6 +1,21 @@
+/*
+ * Author: Izoulet Aurélien
+ * Purpose: Oriented Graph implementation 
+ * Language: C.
+ */
+
 #ifndef _LIST_H_ 
 #define _LIST_H_
 
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+/**
+** @brief         Linked list structure.
+** @param next    Next list element.
+** @param data    Represent the data stored in the node.
+*/
 struct list
 {
     struct list *next;
@@ -10,12 +25,19 @@ struct list
 
 // ----PROPERTIES---- //
 
-// Return true if the list is empty.
-// Otherwise, return false.
+/**
+** @brief         Check if a list is empty.
+** @param list    A list pointer
+** @return       1 if true, 0 if false.
+*/
 int is_empty(struct list *list);
 
-// Return true if the list contain an element that contains 'value'.
-// Otherwise, return false. 
+/**
+** @brief         Check if a node with data already exists in the list.
+** @param list    A list pointer.
+** @param value   A data to compare.
+** @return       1 if true, 0 if false.
+*/
 int exists(struct list *list, int value);
 
 // Return true if the list is sorted.

@@ -1,5 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
+/*
+ * Author: Izoulet Aurélien
+ * Purpose: Oriented Graph implementation 
+ * Language: C.
+ */
 #include "list.h"
 
 int is_empty(struct list *list)
