@@ -36,7 +36,7 @@ struct graph_node *new_node(int rank, char* data)
         errx(1, "new_node: malloc error");
     }
 
-    new_node->rank = rank;
+    new_node->depth = rank;
     new_node->data = data;
     new_node->adjacencyList = NULL;
     new_node->adjacencyListSize = 0;
