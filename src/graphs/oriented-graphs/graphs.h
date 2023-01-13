@@ -11,16 +11,17 @@
 #include <err.h>
 
 /**
-** @brief         Node structure.
-** @param rank    Represent the eccentricity of the node from the center.
-** @param marked  Mark vector.
-** @param data    Node data.
-** @param linked  Adjacency linked list.
+** @brief                    Node structure.
+** @param depth              Represent the eccentricity of the node from the center.
+** @param marked             Mark vector, the id of the node.
+** @param data               Node data.
+** @param adjacencyList      Adjacency graph_node list.
+** @param adjacencyListSize  Number of nodes in the adjency list. 
 */
 
 struct graph_node
 {
-    int rank;
+    int depth;
     int marked;
     char *data;
     struct graph_node **adjacencyList;
@@ -51,6 +52,14 @@ void destroy_graph(struct graph_node *head);
 
 struct graph_node *new_node(int rank, char* data);
 
+/**
+** @brief               Create a new node origin to the adjacency list of the node target.
+** @param origin        Represent the node to add.
+** @param target        Represent the node a node that will receive the node to add.  
+** @return              Void.
+*/
+
+void add_to_adjacencyList(struct node *origin, struct node *target);
 
 
 #endif
