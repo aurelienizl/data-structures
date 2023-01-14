@@ -3,6 +3,7 @@
  * Purpose: Oriented Graph implementation.
  * Language: C.
  */
+
 #ifndef _GRAPHS_H_
 #define _GRAPHS_H_
 
@@ -13,7 +14,7 @@
 /**
 ** @brief                    Node structure.
 ** @param depth              Represent the eccentricity of the node from the center.
-** @param marked             Mark vector, the id of the node.
+** @param mark               Mark vector, the id of the node.
 ** @param data               Node data.
 ** @param adjacencyList      Adjacency graph_node list.
 ** @param adjacencyListSize  Number of nodes in the adjency list. 
@@ -22,10 +23,22 @@
 struct graph_node
 {
     int depth;
-    int marked;
+    int mark;
     char *data;
     struct graph_node **adjacencyList;
     size_t adjacencyListSize;
+};
+
+/**
+** @brief               Represent a full graph.
+** @param node          Represent the head.
+** @param id            Represent the id. 
+*/
+
+struct graph
+{
+    struct graph_node *head;
+    int id; 
 };
 
 /**
@@ -42,7 +55,7 @@ void destroy_node(struct graph_node *node);
 ** @return              Void.
 */
 
-void destroy_graph(struct graph_node *head);
+void destroy_graph(struct graph *head);
 
 /**
 ** @brief               Create a new graph node.
@@ -50,16 +63,24 @@ void destroy_graph(struct graph_node *head);
 ** @return              A new graph node.
 */
 
-struct graph_node *new_node(int rank, char* data);
+struct graph_node *new_node(int depth, char* data);
+
+/**
+** @brief               Create a new graph.
+** @param rank          Represent the graph id.
+** @return              A new graph.
+*/
+
+struct graph *new_graph(int id);
 
 /**
 ** @brief               Create a new node origin to the adjacency list of the node target.
-** @param origin        Represent the node to add.
 ** @param target        Represent the node a node that will receive the node to add.  
-** @return              Void.
+** @param origin        Represent the node to add.
+** @return              Return true if the node is successfully added, otherwise false.
 */
 
-void add_to_adjacencyList(struct node *origin, struct node *target);
+void add_to_adjacencyList(struct graph_node *target, struct graph_node *origin);
 
 
 #endif
