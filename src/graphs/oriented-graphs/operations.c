@@ -34,16 +34,20 @@ void destroy_node(struct graph_node *node)
 ** @return              Void.
 */
 
-void destroy_graph_ext(struct graph_node *head)
+void destroy_graph_ext(struct graph_node *head, int mark)
 {
     if (head != NULL)
     {
-        for (size_t i = 0; i < head->adjacencyListSize; i++)
+        if (head->mark != mark)
         {
-            struct graph_node *tmp = head->adjacencyList[i];
-            destroy_graph_ext(tmp);
+            head->mark = mark;
+            for (size_t i = 0; i < head->adjacencyListSize; i++)
+            {
+                struct graph_node *tmp = head->adjacencyList[i];
+                destroy_graph_ext(tmp, mark);
+            }
+            destroy_node(head);
         }
-        destroy_node(head);
     }
 }
 
@@ -56,7 +60,15 @@ void destroy_graph_ext(struct graph_node *head)
 void destroy_graph(struct graph *head)
 {
     struct graph_node *current = head->head;
-    destroy_graph_ext(current);
+    int mark = current->mark;
+    if (mark == 0)
+    {
+        destroy_graph_ext(current, 1);
+    }
+    else
+    {
+        destroy_graph_ext(current, 0);
+    }
     free(head);
 }
 
@@ -106,6 +118,7 @@ struct graph *new_graph(int id)
 
 /**
 ** @brief               Create a new node origin to the adjacency list of the node target.
+** @note                This method will override the depth parameter of the origin node.
 ** @param target        Represent the node a node that will receive the node to add.
 ** @param origin        Represent the node to add.
 ** @return              Return true if the node is successfully added, otherwise false.

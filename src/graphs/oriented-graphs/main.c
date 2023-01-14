@@ -30,26 +30,37 @@ char *random_string_gen(size_t length)
     return randomString;
 }
 
-void print_graph_ext(struct graph_node *head)
+void print_graph_ext(struct graph_node *head, int mark)
 {
     if (head != NULL)
     {
-        for (size_t i = 0; i < head->adjacencyListSize; i++)
+        if (head->mark != mark)
         {
-            print_graph_ext((head->adjacencyList)[i]);
+            head->mark = mark;
+            printf("-------------------------\n");
+            printf("Data : %s\n", head->data);
+            printf("Depth: %i\n", head->depth);
+            printf("Mark : %i\n", head->mark);
+            printf("Connx: %li\n", head->adjacencyListSize);
+            for (size_t i = 0; i < head->adjacencyListSize; i++)
+            {
+                print_graph_ext((head->adjacencyList)[i], mark);
+            }
         }
-        printf("-------------------------\n");
-        printf("Data : %s\n", head->data);
-        printf("Depth: %i\n", head->depth);
-        printf("Mark : %i\n", head->mark);
-        printf("Connx: %li\n", head->adjacencyListSize);
     }
 }
 
 void print_graph(struct graph *graph)
 {
     struct graph_node *current = graph->head;
-    print_graph_ext(current);
+    if (current->mark == 0)
+    {
+        print_graph_ext(current, 1);
+    }
+    else
+    {
+        print_graph_ext(current, 0);
+    }
 }
 
 int main()
