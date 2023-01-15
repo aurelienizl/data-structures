@@ -30,7 +30,8 @@ void destroy_node(struct graph_node *node)
 /**
 ** @brief               Extention of : destroy_graph.
 ** @details             Recursively delete all nodes from the graph.
-** @param node          Represent the head node.
+** @param head          Represent the head node.
+** @param mark          Represent the mark vector.
 ** @return              Void.
 */
 
@@ -53,7 +54,7 @@ void destroy_graph_ext(struct graph_node *head, int mark)
 
 /**
 ** @brief               Free all node on a graph.
-** @param node          Represent the head node.
+** @param head          Represent the head node.
 ** @return              Void.
 */
 
@@ -74,11 +75,13 @@ void destroy_graph(struct graph *head)
 
 /**
 ** @brief               Free node memory.
-** @param node          Represent the node.
+** @param depth         Represent the current depth of the node. 
+** @param data          Represent the data stored in the new node.     
+** @note                The data need to be allocated on the heap.                          
 ** @return              Void.
 */
 
-struct graph_node *new_node(int rank, char *data)
+struct graph_node *new_node(int depth, char *data)
 {
     struct graph_node *new_node = malloc(sizeof(struct graph_node));
 
@@ -87,7 +90,7 @@ struct graph_node *new_node(int rank, char *data)
         errx(1, "new_node: malloc error");
     }
 
-    new_node->depth = rank;
+    new_node->depth = depth;
     new_node->data = data;
     new_node->adjacencyList = NULL;
     new_node->adjacencyListSize = 0;
@@ -98,7 +101,7 @@ struct graph_node *new_node(int rank, char *data)
 
 /**
 ** @brief               Create a new graph.
-** @param rank          Represent the graph id.
+** @param id          Represent the graph id.
 ** @return              A new graph.
 */
 
