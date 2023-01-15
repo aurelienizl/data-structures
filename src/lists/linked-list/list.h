@@ -30,6 +30,7 @@ struct list
 ** @param list    A list pointer
 ** @return       1 if true, 0 if false.
 */
+
 int is_empty(struct list *list);
 
 /**
@@ -38,13 +39,23 @@ int is_empty(struct list *list);
 ** @param value   A data to compare.
 ** @return       1 if true, 0 if false.
 */
+
 int exists(struct list *list, int value);
 
-// Return true if the list is sorted.
-// Otherwise, return false.
+/**
+** @brief         Check if a list is sorted. 
+** @param list    A list pointer.
+** @return        1 if true, 0 if false.
+*/
+
 int is_sorted(struct list *list);
 
-// Return the numbers of element in the list
+/**
+** @brief         Return the size of the list. 
+** @param list    A list pointer.
+** @return        The number of nodes (int).
+*/
+
 int count(struct list *list);
 
 // ----OPERATIONS---- //
