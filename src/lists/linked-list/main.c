@@ -1,6 +1,6 @@
 /*
  * Author: Izoulet Aurélien
- * Purpose: Oriented Graph implementation 
+ * Purpose: Linked list implementation 
  * Language: C.
  */
 #include "list.h"

@@ -2,7 +2,7 @@
 
 CC=gcc
 CPPFLAGS=  
-CFLAGS= -Wall -Werror -Wextra -pedantic -std=c99 
+CFLAGS= -Wall -Wextra -pedantic -std=c99 
 LDFLAGS=
 LDLIBS= 
 
@@ -15,17 +15,20 @@ release: $(FILES)
 release: 
 	$(CC) $^ -o app
 
-
 check: CFLAGS += -g -fsanitize=address 
 check: $(FILES)
 check:
 	$(CC) -fsanitize=address $^ -o app
-	./app
+	./app 
+	make clean
+	
 
-debug: CFLAGS += -g -fsanitize=address 
+debug: CFLAGS += -g
 debug: $(FILES)
 debug: 
-	$(CC) -fsanitize=address $^ -o app
+	$(CC) $^ -o app
+	valgrind --leak-check=full ./app 
+	make clean
 
 clean:
 	${RM} app
