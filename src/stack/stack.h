@@ -15,7 +15,7 @@
 /**
 ** @brief         Linked list structure.
 ** @param next    Next list element.
-** @param next    Prev list element.
+** @param prev    Prev list element.
 ** @param data    Represent the data stored in the node.
 */
 
@@ -23,7 +23,7 @@ struct list
 {
     struct list *next;
     struct list *prev;
-    char* data;
+    void* data;
 };
 
 /**
@@ -57,7 +57,7 @@ int is_empty(struct stack *stack);
 ** @return        1 if true, 0 if false.
 */
 
-void addstack(struct stack *stack, char* data);
+void addstack(struct stack *stack, void* data);
 
 /**
 ** @brief         Delete an element to the stack and return it's data.  
@@ -66,7 +66,7 @@ void addstack(struct stack *stack, char* data);
 ** @note          The data of the element needs to be freed. 
 */
 
-char* unstack(struct stack *stack);
+void* unstack(struct stack *stack);
 
 /**
 ** @brief         Free all data from a stack structure.  

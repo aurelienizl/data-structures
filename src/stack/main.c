@@ -37,7 +37,7 @@ void print_stack(struct stack *stack)
     struct list *last = stack->last;
     while (last != NULL)
     {
-        printf("NEW NODE WITH : %s\n", last->data);
+        printf("NEW NODE WITH : %s\n", (char*) last->data);
         last = last->prev;
     }
 }
@@ -51,7 +51,8 @@ int main()
     addstack(stack, random_string_gen(10));
     addstack(stack, random_string_gen(10));
 
-
+    char* data = unstack(stack);
+    free(data);
 
     print_stack(stack);
     freestack(stack);
