@@ -1,23 +1,21 @@
 /*
  * Author: Izoulet Aurélien
- * Purpose: Linked list implementation 
+ * Purpose: Linked list implementation
  * Language: C.
  */
 #include "list.h"
 
 struct list *new_list()
 {
-    struct list *head = NULL;
-    head = malloc(sizeof(struct list));
+    struct list *head = malloc(sizeof(struct list));
     head->next = NULL;
-    head->data = -1;
+    head->data = NULL;
     return head;
 }
 
-struct list *new_element(int data)
+struct list *new_element(void *data)
 {
-    struct list *head = NULL;
-    head = malloc(sizeof(struct list));
+    struct list *head = malloc(sizeof(struct list));
     head->next = NULL;
     head->data = data;
     return head;
@@ -25,12 +23,19 @@ struct list *new_element(int data)
 
 void remove_element(struct list *list)
 {
-    free(list);
+    if (list != NULL)
+    {
+        if (list->data != NULL)
+        {
+            free(list->data);
+        }
+        free(list);
+    }
 }
 
 void add_top(struct list *list, struct list *element)
 {
-    if(list->next == NULL) // Pass the sentinel
+    if (list->next == NULL) // Pass the sentinel
     {
         list->next = element;
         return;
@@ -41,7 +46,7 @@ void add_top(struct list *list, struct list *element)
 
 void add_end(struct list *list, struct list *element)
 {
-    while(list->next != NULL) // Pass the sentinel
+    while (list->next != NULL) // Pass the sentinel
     {
         list = list->next;
     }
@@ -55,32 +60,32 @@ void add_to(struct list *element, struct list *node)
 
 void swap(struct list *element1, struct list *element2)
 {
-    int tmp = element1->data;
+    void *tmp = element1->data;
     element1->data = element2->data;
     element2->data = tmp;
 }
 
 void sort(struct list *list)
 {
-    if(list->next == NULL)
+    if (list->next == NULL)
     {
         return;
     }
-    if(list->next->next == NULL)
+    if (list->next->next == NULL)
     {
         return;
     }
 
     struct list *i = list->next;
     struct list *j = list->next->next;
-    while(i != NULL)
+    while (i != NULL)
     {
         j = i->next;
-        while(j != NULL)
+        while (j != NULL)
         {
-            if(i->data>j->data)
+            if (strcmp(i->data, j->data) == 1)
             {
-                swap(i,j);
+                swap(i, j);
             }
             j = j->next;
         }
@@ -90,25 +95,25 @@ void sort(struct list *list)
 
 void sort_reverse(struct list *list)
 {
-    if(list->next == NULL)
+    if (list->next == NULL)
     {
         return;
     }
-    if(list->next->next == NULL)
+    if (list->next->next == NULL)
     {
         return;
     }
 
     struct list *i = list->next;
     struct list *j = list->next->next;
-    while(i != NULL)
+    while (i != NULL)
     {
         j = i->next;
-        while(j != NULL)
+        while (j != NULL)
         {
-            if(i->data<j->data)
+            if (strcmp(j->data, i->data) == 1)
             {
-                swap(i,j);
+                swap(i, j);
             }
             j = j->next;
         }
@@ -121,13 +126,13 @@ void remove_at(struct list *list, int index)
     struct list *tmp = list;
     list = list->next;
 
-    while(index > 0 && list != NULL)
+    while (index > 0 && list != NULL)
     {
         tmp = list;
         list = list->next;
-        index --;
+        index--;
     }
-    if(index != 0 || list == NULL)
+    if (index != 0 || list == NULL)
     {
         return;
     }
@@ -140,12 +145,12 @@ void remove_last(struct list *list)
     struct list *curr = list->next;
     struct list *before = list;
 
-    if(curr == NULL)
+    if (curr == NULL)
     {
         return;
     }
 
-    while(curr->next != NULL)
+    while (curr->next != NULL)
     {
         curr = curr->next;
         before = before->next;
@@ -160,7 +165,7 @@ void remove_first(struct list *list)
     struct list *sentinel = list;
     struct list *first = sentinel->next;
 
-    if(first == NULL)
+    if (first == NULL)
     {
         return;
     }
@@ -169,17 +174,18 @@ void remove_first(struct list *list)
     remove_element(first);
 }
 
-void remove_list(struct list** head) {
-    struct list *current = *head;
-    struct list *tmp;
-
-    while(current != NULL)
+void remove_list(struct list *head)
+{
+    while (head != NULL)
     {
-        tmp = current->next;
-        free(current);
-        current = tmp;
+        struct list *tmp = head->next;
+        if (head->data != NULL)
+        {
+            free(head->data);
+        }
+        free(head);
+        head = tmp;
     }
-    *head = NULL;
 }
 
 void clear(struct list **list)
@@ -187,9 +193,10 @@ void clear(struct list **list)
     struct list *current = (*list)->next;
     struct list *tmp;
 
-    while(current != NULL)
+    while (current != NULL)
     {
         tmp = current->next;
+        free(current->data);
         free(current);
         current = tmp;
     }
@@ -201,19 +208,19 @@ void insert_at(struct list *list, struct list *node, int index)
     struct list *current = list->next;
     struct list *before = list;
 
-    while(current != NULL && index > 0) // 
+    while (current != NULL && index > 0) //
     {
         current = current->next;
         before = before->next;
         index--;
     }
 
-    if(index > 0) // Index out of range
+    if (index > 0) // Index out of range
     {
         return;
     }
 
-    if(current == NULL) // Insertion at the end of the list
+    if (current == NULL) // Insertion at the end of the list
     {
         before->next = node;
         return;
@@ -223,16 +230,16 @@ void insert_at(struct list *list, struct list *node, int index)
     node->next = current;
 }
 
-void insert_before(struct list *list,struct list *node, struct list *element)
+void insert_before(struct list *list, struct list *node, struct list *element)
 {
     struct list *current = list->next;
     struct list *before = list;
 
-    while(current->data != node->data)
+    while (strcmp(current->data, node->data) == 0)
     {
         before = before->next;
         current = current->next;
-        if(current == NULL)
+        if (current == NULL)
         {
             return;
         }
@@ -246,10 +253,14 @@ struct list *get_at(struct list *list, int index)
 {
     list = list->next; // Pass the sentinel
 
-    while(index != 0)
+    while (index != 0)
     {
+        if(list->next == NULL)
+        {
+            errx(1, "linked list : out of range");
+        }
         list = list->next;
-        index --;
+        index--;
     }
     return list;
 }

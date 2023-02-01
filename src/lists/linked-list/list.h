@@ -10,6 +10,8 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <err.h>
 
 /**
 ** @brief         Linked list structure.
@@ -19,7 +21,7 @@
 struct list
 {
     struct list *next;
-    int data;
+    void* data;
 };
 
 
@@ -40,7 +42,7 @@ int is_empty(struct list *list);
 ** @return       1 if true, 0 if false.
 */
 
-int exists(struct list *list, int value);
+int exists(struct list *list, void* data);
 
 /**
 ** @brief         Check if a list is sorted. 
@@ -64,7 +66,7 @@ int count(struct list *list);
 struct list *new_list();
 
 // Return a new element 
-struct list *new_element(int data);
+struct list *new_element(void* data);
 
 // Delete the element 
 void remove_element(struct list *element);
@@ -99,7 +101,7 @@ void remove_last(struct list *list);
 void remove_first(struct list *list);
 
 // Remove the list 
-void remove_list(struct list **list);
+void remove_list(struct list *list);
 
 // Clear the list, keep only the sentinel
 void clear(struct list **list);

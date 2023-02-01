@@ -14,12 +14,12 @@ int is_empty(struct list *list)
     return 0;
 }
 
-int exists(struct list *list, int value)
+int exists(struct list *list, void* value)
 {
     list = list->next; // Pass the sentinel 
     while(list != NULL)
     {
-        if(list->data == value)
+        if(strcmp(list->data,value) == 0)
         {
             return 1;
         }
