@@ -38,8 +38,8 @@ int is_empty(struct list *list);
 /**
 ** @brief         Check if a node with data already exists in the list.
 ** @param list    A list pointer.
-** @param value   A data to compare.
-** @return       1 if true, 0 if false.
+** @param data    A data to compare.
+** @return        1 if true, 0 if false.
 */
 
 int exists(struct list *list, void* data);

@@ -52,9 +52,11 @@ struct stack *new_stack();
 int is_empty(struct stack *stack);
 
 /**
-** @brief         Add to the stack a new element with data. 
+** @brief         Add element to the stack.
 ** @param stack   A stack pointer.
-** @return        1 if true, 0 if false.
+** @param data    Data to add to the stack.
+** @note          The data needs to be allocated on the heap. 
+** @return        Void.
 */
 
 void addstack(struct stack *stack, void* data);
