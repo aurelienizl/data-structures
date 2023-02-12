@@ -1,37 +1,22 @@
-# Simple mini Makefile
+CC ?= gcc
+PKGCONFIG = $(shell which pkg-config)
+CFLAGS = $(shell $(PKGCONFIG) --cflags gtk+-3.0) -Wall -Wextra -rdynamic
+LIBS = $(shell $(PKGCONFIG) --libs gtk+-3.0)
 
-CC=gcc
-CPPFLAGS=  
-CFLAGS= -Wall -Wextra -pedantic -std=c99 
-LDFLAGS=
-LDLIBS= 
+SRC = gui.c signals.c
 
-FILES=main.o gui.o
+OBJS = $(SRC:.c=.o)
 
-all: release
+all: exampleapp
 
-release: CFLAGS += -O2 -DNDBUG	
-release: $(FILES)
-release: 
-	$(CC) $^ -o app
+%.o: %.c
+	$(CC) -c -o $(@F) $(CFLAGS) $<
 
-check: CFLAGS += -g -fsanitize=address 
-check: $(FILES)
-check:
-	$(CC) -fsanitize=address $^ -o app
-	./app 
-	make clean
-	
-
-debug: CFLAGS += -g
-debug: $(FILES)
-debug: 
-	$(CC) $^ -o app
-	valgrind --leak-check=full ./app 
+exampleapp: $(OBJS)
+	$(CC) -o $(@F) $(OBJS) $(LIBS) -rdynamic
+	./exampleapp
 	make clean
 
 clean:
-	${RM} app
-	${RM} *.o
-	${RM} *.gch
-	
+	rm -f $(OBJS)
+	rm -f exampleapp
